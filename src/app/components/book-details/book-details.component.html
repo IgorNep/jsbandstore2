@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-4">
+    <a routerLink="/" class="btn btn-link"
+      ><i class="fa fa-arrow-circle-left"></i> Go Back</a
+    >
+  </div>
+</div>
+<div class="row" *ngIf="book">
+  <div class="col-md-8">
+    <div class="bookCard">
+      <img [src]="book.cover" alt="cover" />
+      <h4>{{ book.author }}</h4>
+      <p>{{ book.description }}</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="priceCard">
+      <div class="card-item">
+        <div>Price, $</div>
+        <div>{{ book.price }}</div>
+      </div>
+      <div class="card-item">
+        <div>Count</div>
+        <div>{{ book.count }}</div>
+      </div>
+      <div class="card-item">
+        <div>Total Price, $</div>
+        <div>{{ totalPrice }}</div>
+      </div>
+      <button class="btn btn-primary">Add To Cart</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="!book">
+  <h3>Book has not found!</h3>
+</div>

@@ -1,0 +1,28 @@
+.priceCard {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 5px;
+}
+.bookCard {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  img {
+    width: 200px;
+    margin: 0 auto 2rem auto;
+  }
+}
+
+.card-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+}
+button {
+  margin-top: 1rem;
+  cursor: pointer;
+}

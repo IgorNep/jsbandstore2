@@ -1,0 +1,13 @@
+<div class="booksWrapper">
+  <div class="bookItem" *ngFor="let book of books">
+    <img [src]="book.cover" alt="cover" />
+    <h4>{{ book.title }}</h4>
+    <p>{{ book.author }}</p>
+    <div class="bookFooter">
+      <div>{{ book.price | currency: "USD":"symbol" }}</div>
+      <button routerLink="book/{{ book.id }}" class="btn btn-primary">
+        View
+      </button>
+    </div>
+  </div>
+</div>
