@@ -1,3 +1,4 @@
+import { CartService } from './services/cart.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,7 +29,7 @@ import { DataService } from './services/data.service';
     NotfoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [BookService, AuthService, DataService],
+  providers: [BookService, AuthService, DataService, CartService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 import { DataService } from 'src/app/services/data.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,12 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   showLogin: boolean = false;
-  constructor(private dataService: DataService) {}
+  cartCount: number = 0;
+  constructor(
+    private dataService: DataService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     if (this.dataService.getData().token) {
       this.showLogin = false;
     }
+    this.cartService.getTotalCount().subscribe((total) => {
+      this.cartCount = total;
+    });
   }
   onLogoutClick() {
     this.dataService.logout();

@@ -15,19 +15,24 @@
   </div>
   <div class="col-md-4">
     <div class="priceCard">
+      <p class="text-info text-center" *ngIf="message">{{ message }}</p>
       <div class="card-item">
         <div>Price, $</div>
         <div>{{ book.price }}</div>
       </div>
       <div class="card-item">
         <div>Count</div>
-        <div>{{ book.count }}</div>
+        <div>
+          <span class="count-btn" (click)="decrementCount()">-</span>
+          {{ count }}
+          <span class="count-btn" (click)="incrementCount()">+</span>
+        </div>
       </div>
       <div class="card-item">
         <div>Total Price, $</div>
-        <div>{{ totalPrice }}</div>
+        <div>{{ book.price * count | number: "1.2-2" }}</div>
       </div>
-      <button class="btn btn-primary">Add To Cart</button>
+      <button class="btn btn-primary" (click)="addToCart()">Add To Cart</button>
     </div>
   </div>
 </div>
