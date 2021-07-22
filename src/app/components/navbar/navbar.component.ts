@@ -11,7 +11,7 @@ import { Subscription, Observable } from 'rxjs';
 export class NavbarComponent implements OnInit, OnDestroy {
   name: string = '1';
   avatar: string = '';
-  isAuth: boolean = false;
+  isAuth: string = '';
   cartCount: number = 0;
   subscription!: Subscription;
   subscription2!: Subscription;
