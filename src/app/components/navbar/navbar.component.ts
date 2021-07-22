@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  showLogin: boolean = false;
+  name: string = '1';
+  avatar: string = '';
+  isAuth: boolean = false;
   cartCount: number = 0;
   constructor(
     private dataService: DataService,
@@ -16,15 +18,18 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.dataService.getData().token) {
-      this.showLogin = false;
-    }
+    this.dataService.isAuth.subscribe((value) => {
+      this.isAuth = value;
+      if (value) {
+        this.name = this.dataService.getData().username;
+        this.avatar = this.dataService.getData().avatar;
+      }
+    });
     this.cartService.getTotalCount().subscribe((total) => {
       this.cartCount = total;
     });
   }
   onLogoutClick() {
     this.dataService.logout();
-    this.showLogin = true;
   }
 }
