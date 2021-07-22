@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   username: string = '';
+  subscription!: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -19,12 +21,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
   onSubmit() {
-    this.authService.login(this.username).subscribe((res) => {
-      if (res && res.token) {
-        this.dataService.setData(res);
-        localStorage.setItem('authData', JSON.stringify(res));
-        this.router.navigate(['/']);
-      }
-    });
+    this.subscription = this.authService
+      .login(this.username)
+      .subscribe((res) => {
+        if (res && res.token) {
+          this.dataService.setData(res);
+          localStorage.setItem('authData', JSON.stringify(res));
+          this.router.navigate(['/']);
+        }
+      });
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

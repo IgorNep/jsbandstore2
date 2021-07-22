@@ -1,5 +1,5 @@
 <div class="booksWrapper">
-  <div class="bookItem" *ngFor="let book of books">
+  <div class="bookItem" *ngFor="let book of books | async">
     <img [src]="book.cover" alt="cover" />
     <h4>{{ book.title }}</h4>
     <p>{{ book.author }}</p>
