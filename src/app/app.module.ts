@@ -16,6 +16,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { DataService } from './services/data.service';
+import { ModalService } from './services/modal.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { DataService } from './services/data.service';
     NotfoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [BookService, AuthService, DataService, CartService],
+  providers: [BookService, AuthService, DataService, CartService, ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
