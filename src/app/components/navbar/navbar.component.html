@@ -1,19 +1,29 @@
 <nav class="navbar navbar-dark bg-dark mb-3">
   <div class="container">
     <a routerLink="/" class="navbar-brand">JS Band Store</a>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
+    <ul class="navbar navbar-nav ml-auto flex-row">
+      <li class="nav-item mr-3" *ngIf="isAuth">
+        <span>
+          <img [src]="avatar" alt="avatar" class="avatarImg" />
+        </span>
+      </li>
+      <li class="nav-item mr-3" *ngIf="isAuth">
+        <span class="nav-link">
+          {{ name }}
+        </span>
+      </li>
+      <li class="nav-item mr-3">
         <a routerLink="/cart" class="nav-link">
           <i class="fa fa-shopping-cart"></i>
           <span class="text-danger"> ( {{ cartCount }} ) </span>
         </a>
       </li>
-      <li class="nav-item" *ngIf="!showLogin">
+      <li class="nav-item mr-3" *ngIf="isAuth">
         <a routerLink="/login" (click)="onLogoutClick()" class="nav-link"
           >Logout</a
         >
       </li>
-      <li class="nav-item" *ngIf="showLogin">
+      <li class="nav-item mr-3" *ngIf="!isAuth">
         <a routerLink="/login" class="nav-link">Login</a>
       </li>
     </ul>
