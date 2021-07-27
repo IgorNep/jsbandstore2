@@ -1,17 +1,19 @@
 import { CartService } from './../../services/cart.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartItem } from 'src/app/models/Cart';
 import { ModalService } from 'src/app/services/modal.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   cartItems!: CartItem[];
-  showModal!: boolean;
+  showModal!: Observable<boolean>;
   totalPrice!: number;
+  subscription!: Subscription;
 
   constructor(
     private cartService: CartService,
@@ -19,16 +21,20 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cartService.getCartItems().subscribe((items) => {
+    this.subscription = this.cartService.getCartItems().subscribe((items) => {
       this.cartItems = items;
     });
-    this.modalService.isModal.subscribe((modal) => {
-      this.showModal = modal;
-    });
+    // this.modalService.isModal.subscribe((modal) => {
+    //   this.showModal = modal;
+    // });
+    this.showModal = this.modalService.isModal;
     this.totalPrice = this.cartService.getTotalPrice();
   }
 
   onPurchaseClick() {
     this.modalService.showModal();
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

@@ -1,21 +1,23 @@
 import { CartService } from './../../services/cart.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/Books';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BookService } from 'src/app/services/book.service';
 import { CartItem } from 'src/app/models/Cart';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-book-details',
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.scss'],
 })
-export class BookDetailsComponent implements OnInit {
+export class BookDetailsComponent implements OnInit, OnDestroy {
   id!: string;
   book!: Book;
   count: number = 0;
   message: string = '';
   newCartItem!: CartItem;
+  subscription!: Subscription;
 
   constructor(
     private router: Router,
@@ -27,9 +29,12 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
-    this.bookService.getBook(this.id).subscribe((book) => {
+    this.subscription = this.bookService.getBook(this.id).subscribe((book) => {
       this.book = book;
     });
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
   decrementCount() {
     if (this.count === this.book.count) {

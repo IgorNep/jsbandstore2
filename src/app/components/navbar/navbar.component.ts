@@ -1,24 +1,28 @@
 import { CartService } from './../../services/cart.service';
 import { DataService } from 'src/app/services/data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   name: string = '1';
   avatar: string = '';
   isAuth: boolean = false;
   cartCount: number = 0;
+  subscription!: Subscription;
+  subscription2!: Subscription;
+
   constructor(
     private dataService: DataService,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    this.dataService.isAuth.subscribe((value) => {
+    this.subscription = this.dataService.isAuth.subscribe((value) => {
       this.isAuth = value;
       if (value) {
         this.name = this.dataService.getData().username;
@@ -28,6 +32,10 @@ export class NavbarComponent implements OnInit {
     this.cartService.getTotalCount().subscribe((total) => {
       this.cartCount = total;
     });
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
   onLogoutClick() {
     this.dataService.logout();

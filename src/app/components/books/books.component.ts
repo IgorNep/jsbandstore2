@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { Book } from 'src/app/models/Books';
 import { BookService } from 'src/app/services/book.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -10,7 +11,7 @@ import { BookService } from 'src/app/services/book.service';
   styleUrls: ['./books.component.scss'],
 })
 export class BooksComponent implements OnInit {
-  books!: Book[];
+  books!: Observable<Book[]>;
 
   constructor(
     private bookService: BookService,
@@ -23,8 +24,9 @@ export class BooksComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    this.bookService.getBooks().subscribe((books) => {
-      this.books = books;
-    });
+    // this.bookService.getBooks().subscribe((books) => {
+    //   this.books = books;
+    // });
+    this.books = this.bookService.getBooks();
   }
 }
