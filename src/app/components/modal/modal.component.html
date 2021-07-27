@@ -1,1 +1,27 @@
-<p>modal works!</p>
+<div class="modal-wrapper">
+  <div class="modal-content">
+    <div class="w-100">
+      <h3>Thank you for purchasing books in our store</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Count</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of cartItems">
+            <td>{{ item.title }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.totalPrice | number: "1.2-2" }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="totalAmount">Total Amount: {{ total | currency: "USD" }}</p>
+    </div>
+    <span class="btn btn-info" (click)="onCloseClick()">Close</span>
+  </div>
+</div>

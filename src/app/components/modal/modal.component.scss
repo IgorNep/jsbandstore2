@@ -1,0 +1,26 @@
+.modal-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+  border-radius: 10px;
+  padding: 2rem;
+  background: #fff;
+  z-index: 99999;
+
+  .btn {
+    cursor: pointer;
+    margin-left: auto;
+  }
+}
+.totalAmount {
+  text-align: right;
+}
