@@ -1,7 +1,8 @@
+import { TokenInterceptor } from './utils/token.interceptor';
 import { CartService } from './services/cart.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BookService } from './services/book.service';
 import { AuthService } from './services/auth.service';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +31,18 @@ import { ModalService } from './services/modal.service';
     NotfoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [BookService, AuthService, DataService, CartService, ModalService],
+  providers: [
+    BookService,
+    AuthService,
+    DataService,
+    CartService,
+    ModalService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
